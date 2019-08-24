@@ -39,9 +39,17 @@ dependencies = [
 ]
 
 [[package]]
+name = "grpc-rust-gen"
+version = "0.1.0"
+dependencies = [
+ "protobuf 2.8.0 (registry+https://github.com/rust-lang/crates.io-index)",
+]
+
+[[package]]
 name = "grpc-rust-server"
 version = "0.1.0"
 dependencies = [
+ "grpc-rust-gen 0.1.0",
  "protoc-rust-grpc 0.6.1 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
 
