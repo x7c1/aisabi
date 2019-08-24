@@ -11,4 +11,4 @@ before_install:
   - ./scripts/setup-protoc-docker.sh
 
 script:
-  - ./scripts/run_builder.sh cargo-build
+  - ./scripts/run_tests.sh
