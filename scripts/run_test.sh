@@ -27,7 +27,7 @@ run_container() {
       --tty \
       --workdir ${MOUNT_DIR} \
       ${IMAGE_NAME} \
-      sh ${MOUNT_DIR}/builder_internal/cargo-build.sh ${ARGS} --debug
+      sh ${MOUNT_DIR}/builder_internal/cargo-test.sh ${ARGS} --debug
 }
 
 restart_container() {

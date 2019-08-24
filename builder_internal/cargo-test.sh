@@ -14,6 +14,6 @@ set -x
 cd /mnt
 
 RUSTFLAGS="-C opt-level=$(get_opt_level $@)" \
-cargo build \
+cargo test \
     --verbose \
     $(get_build_mode $@)
