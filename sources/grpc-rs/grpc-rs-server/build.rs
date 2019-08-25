@@ -8,7 +8,6 @@ fn main() {
     protoc_grpcio::compile_grpc_protos(
         &["/mnt/sources/proto/aaa.proto"],
         &[proto_root, "/usr/local/include"],
-//        &proto_root,
         &(gen_dir.to_owned() + "/src"),
         None
     ).expect("Failed to compile gRPC definitions!");
