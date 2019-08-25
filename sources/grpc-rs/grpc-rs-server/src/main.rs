@@ -20,7 +20,6 @@ mod tests {
     #[test]
     fn test_status() {
         let status = get_status();
-        main();
         assert_eq!(status.get_code(), 200);
         assert_eq!(status.get_message(), "hello!");
     }
