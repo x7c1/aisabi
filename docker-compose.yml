@@ -1,0 +1,24 @@
+version: '3.2'
+services:
+  grpc_server:
+    build:
+      ./builder_docker
+    command:
+      /mnt/target/debug/examples/greeter_server
+    volumes:
+      - .:/mnt
+    tty:
+      true
+  grpc_client:
+    build:
+      ./builder_docker
+    environment:
+      RUST_BACKTRACE: 1
+    command:
+      /mnt/target/debug/examples/greeter_client
+    volumes:
+      - .:/mnt
+    tty:
+      true
+    depends_on:
+      - grpc_server
