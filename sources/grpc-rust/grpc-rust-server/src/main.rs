@@ -6,10 +6,11 @@ fn main() {
 }
 
 fn get_status() -> EchoStatus {
-    let mut status = EchoStatus::new();
-    status.set_code(200);
-    status.set_message("hello!".to_string());
-    status
+    EchoStatus {
+        code: 200,
+        message: "hello!".to_string(),
+        ..Default::default()
+    }
 }
 
 #[cfg(test)]
