@@ -12,4 +12,6 @@ RUN set -x && \
   mv protoc3/include/* /usr/local/include/
 
 RUN set -x &&\
-  chmod ugo+x /usr/local/bin/protoc
+  chmod ugo+x /usr/local/bin/protoc && \
+  chmod ugo+r /usr/local/include/google && \
+  chmod ugo+r /usr/local/include/google/**/*
