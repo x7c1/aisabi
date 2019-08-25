@@ -1,8 +1,67 @@
-use grpc_rs_gen::EchoStatus;
+#[macro_use]
+extern crate log;
+
+use futures::future::Future;
+use grpc_rs_gen::{EchoStatus, Greeter, HelloReply, HelloRequest, create_greeter};
+use grpcio::{Environment, RpcContext, ServerBuilder, UnarySink};
+use std::sync::Arc;
+use futures::sync::oneshot;
+use std::{thread, io};
+use std::io::Read;
+use std::process::exit;
+
+// https://github.com/pingcap/grpc-rs/blob/master/tests-and-examples/examples/hello_world/server.rs
+
+#[derive(Clone)]
+struct GreeterService;
+
+impl Greeter for GreeterService {
+    fn say_hello(
+        &mut self,
+        context: RpcContext,
+        request: HelloRequest,
+        sink: UnarySink<HelloReply>,
+    ) {
+        let message = format!("Hello, {}", request.get_name());
+        let response = HelloReply {
+            message,
+            ..Default::default()
+        };
+        let future = sink
+            .success(response)
+            .map_err(move |e| error!("failed to reply {:?}: {:?}", request, e));;
+
+        context.spawn(future)
+    }
+}
 
 fn main() {
-    let status = get_status();
-    println!("{:#?}", status);
+    std::env::set_var("RUST_LOG", "info");
+    env_logger::init();
+
+    let env = Arc::new(Environment::new(1));
+    let service = create_greeter(GreeterService);
+    let mut server = ServerBuilder::new(env)
+        .register_service(service)
+        .bind("0.0.0.0", 50_051)
+        .build()
+        .unwrap();
+
+    server.start();
+
+    for &(ref host, port) in server.bind_addrs() {
+        info!("listening on... {}:{}", host, port);
+    }
+
+    let (tx, rx) = oneshot::channel();
+    thread::spawn(move || {
+        info!("Press ENTER to exit...");
+        let _ = io::stdin().read(&mut [0]).unwrap();
+        tx.send(())
+    });
+
+    let _ = rx.wait();
+    let _ = server.shutdown().wait();
 }
 
 fn get_status() -> EchoStatus {

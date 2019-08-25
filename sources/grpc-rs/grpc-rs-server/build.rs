@@ -9,6 +9,7 @@ fn main() {
         &["/mnt/sources/proto/aaa.proto"],
         &[proto_root, "/usr/local/include"],
         &(gen_dir.to_owned() + "/src"),
-        None
-    ).expect("Failed to compile gRPC definitions!");
+        None,
+    )
+    .expect("Failed to compile gRPC definitions!");
 }
