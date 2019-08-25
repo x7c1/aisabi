@@ -7,6 +7,19 @@ edition = "2018"
 
 [dependencies]
 grpc-rs-gen = { path = "../grpc-rs-gen" }
+grpcio = "0.4.*"
+log = "*"
+env_logger = "*"
+futures = "0.1.*"
 
 [build-dependencies]
 protoc-grpcio = "1.0.*"
+
+
+[[example]]
+name = "greeter_client"
+path = "src/client.rs"
+
+[[example]]
+name = "greeter_server"
+path = "src/main.rs"

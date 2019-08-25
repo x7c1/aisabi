@@ -7,3 +7,5 @@ edition = "2018"
 
 [dependencies]
 protobuf = "2.8.*"
+grpcio = "0.4.*"
+futures = "0.1.*"
