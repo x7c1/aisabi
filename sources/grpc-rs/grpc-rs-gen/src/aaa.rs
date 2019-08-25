@@ -68,7 +68,7 @@ impl EchoStatus {
     pub fn get_message(&self) -> &str {
         &self.message
     }
-    pub fn clear_message(&mut self)`     {
+    pub fn clear_message(&mut self) {
         self.message.clear();
     }
 
