@@ -16,4 +16,5 @@ cd /mnt
 RUSTFLAGS="-C opt-level=$(get_opt_level $@)" \
 cargo test \
     --verbose \
-    $(get_build_mode $@)
+    $(get_build_mode $@) \
+    -- --nocapture
