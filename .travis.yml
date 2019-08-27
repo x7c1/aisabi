@@ -11,5 +11,6 @@ before_install:
   - ./scripts/setup-protoc-docker.sh
 
 script:
+  - ./scripts/run_builder_task.sh cargo-fmt --all-check
   - ./scripts/run_tests.sh
   - docker-compose up grpc_rs_client
