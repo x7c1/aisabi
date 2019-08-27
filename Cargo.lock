@@ -136,6 +136,16 @@ dependencies = [
 ]
 
 [[package]]
+name = "grpc-rs-client"
+version = "0.1.0"
+dependencies = [
+ "env_logger 0.6.2 (registry+https://github.com/rust-lang/crates.io-index)",
+ "grpc-rs-gen 0.1.0",
+ "grpcio 0.4.4 (registry+https://github.com/rust-lang/crates.io-index)",
+ "log 0.4.8 (registry+https://github.com/rust-lang/crates.io-index)",
+]
+
+[[package]]
 name = "grpc-rs-gen"
 version = "0.1.0"
 dependencies = [
