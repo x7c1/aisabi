@@ -9,3 +9,6 @@ edition = "2018"
 protobuf = "2.8.*"
 grpcio = "0.4.*"
 futures = "0.1.*"
+
+[build-dependencies]
+protoc-grpcio = "1.0.*"

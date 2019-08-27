@@ -11,6 +11,3 @@ grpcio = "0.4.*"
 log = "*"
 env_logger = "*"
 futures = "0.1.*"
-
-[build-dependencies]
-protoc-grpcio = "1.0.*"
