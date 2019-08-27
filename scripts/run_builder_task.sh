@@ -35,7 +35,6 @@ docker run \
     --volume $(pwd):${MOUNT_DIR} \
     --name ${CONTAINER_NAME} \
     --user ${UID}:$(id -g) \
-    --publish 50051:50051 \
     --interactive \
     --rm \
     --tty \
