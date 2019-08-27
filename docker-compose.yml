@@ -4,7 +4,6 @@ services:
     build:
       ./builder_docker
     command:
-#      /mnt/target/debug/examples/greeter_server
       /mnt/target/debug/grpc-rs-server
     volumes:
       - .:/mnt
@@ -23,7 +22,6 @@ services:
       RUST_BACKTRACE: 1
     command:
       /mnt/target/debug/grpc-rs-client
-#      /mnt/target/debug/examples/greeter_client
     volumes:
       - .:/mnt
     working_dir:
