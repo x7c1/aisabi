@@ -12,4 +12,4 @@ before_install:
 
 script:
   - ./scripts/run_tests.sh
-  - docker-compose up grpc_client
+  - docker-compose up grpc_rs_client

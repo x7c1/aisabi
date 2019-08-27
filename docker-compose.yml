@@ -1,6 +1,6 @@
 version: '3.2'
 services:
-  grpc_server:
+  grpc_rs_server:
     build:
       ./builder_docker
     command:
@@ -16,7 +16,7 @@ services:
       options:
         max-size: "50m"
         max-file: "2"
-  grpc_client:
+  grpc_rs_client:
     build:
       ./builder_docker
     environment:
@@ -31,7 +31,7 @@ services:
     tty:
       true
     depends_on:
-      - grpc_server
+      - grpc_rs_server
     logging:
       options:
         max-size: "50m"

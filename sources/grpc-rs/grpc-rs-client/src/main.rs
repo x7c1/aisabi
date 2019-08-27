@@ -13,7 +13,7 @@ fn main() {
     info!("client started...!");
 
     let env = Arc::new(EnvBuilder::new().build());
-    let ch = ChannelBuilder::new(env).connect("grpc_server:50051");
+    let ch = ChannelBuilder::new(env).connect("grpc_rs_server:50051");
     let client = GreeterClient::new(ch);
 
     let mut req = HelloRequest {

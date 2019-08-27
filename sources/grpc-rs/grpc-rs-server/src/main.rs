@@ -22,7 +22,8 @@ impl Greeter for GreeterService {
         request: HelloRequest,
         sink: UnarySink<HelloReply>,
     ) {
-        let message = format!("Hello, {}", request.get_name());
+        info!("request received!!: {:?}", request);
+        let message = format!("hello, {}", request.get_name());
         let response = HelloReply {
             message,
             ..Default::default()
