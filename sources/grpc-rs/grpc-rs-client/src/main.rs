@@ -3,8 +3,9 @@ extern crate log;
 
 use std::sync::Arc;
 
-use grpc_rs_gen::{GreeterClient, HelloRequest};
 use grpcio::{ChannelBuilder, EnvBuilder};
+use grpc_rs_gen::greeter_grpc::GreeterClient;
+use grpc_rs_gen::greeter::HelloRequest;
 
 fn main() {
     std::env::set_var("RUST_LOG", "info");

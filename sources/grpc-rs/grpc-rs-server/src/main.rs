@@ -3,11 +3,13 @@ extern crate log;
 
 use futures::future::Future;
 use futures::sync::oneshot;
-use grpc_rs_gen::{create_greeter, EchoStatus, Greeter, HelloReply, HelloRequest};
 use grpcio::{Environment, RpcContext, ServerBuilder, UnarySink};
 use std::io::Read;
 use std::sync::Arc;
 use std::{io, thread};
+use grpc_rs_gen::greeter_grpc::{Greeter, create_greeter};
+use grpc_rs_gen::greeter::{HelloRequest, HelloReply};
+use grpc_rs_gen::aaa::EchoStatus;
 
 // https://github.com/pingcap/grpc-rs/blob/master/tests-and-examples/examples/hello_world/server.rs
 

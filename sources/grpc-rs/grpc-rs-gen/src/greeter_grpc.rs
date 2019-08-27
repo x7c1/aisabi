@@ -18,7 +18,7 @@
 #![allow(unused_imports)]
 #![allow(unused_results)]
 
-const METHOD_GREETER_SAY_HELLO: ::grpcio::Method<super::aaa::HelloRequest, super::aaa::HelloReply> = ::grpcio::Method {
+const METHOD_GREETER_SAY_HELLO: ::grpcio::Method<super::greeter::HelloRequest, super::greeter::HelloReply> = ::grpcio::Method {
     ty: ::grpcio::MethodType::Unary,
     name: "/grpc.testing.Greeter/SayHello",
     req_mar: ::grpcio::Marshaller { ser: ::grpcio::pb_ser, de: ::grpcio::pb_de },
@@ -37,19 +37,19 @@ impl GreeterClient {
         }
     }
 
-    pub fn say_hello_opt(&self, req: &super::aaa::HelloRequest, opt: ::grpcio::CallOption) -> ::grpcio::Result<super::aaa::HelloReply> {
+    pub fn say_hello_opt(&self, req: &super::greeter::HelloRequest, opt: ::grpcio::CallOption) -> ::grpcio::Result<super::greeter::HelloReply> {
         self.client.unary_call(&METHOD_GREETER_SAY_HELLO, req, opt)
     }
 
-    pub fn say_hello(&self, req: &super::aaa::HelloRequest) -> ::grpcio::Result<super::aaa::HelloReply> {
+    pub fn say_hello(&self, req: &super::greeter::HelloRequest) -> ::grpcio::Result<super::greeter::HelloReply> {
         self.say_hello_opt(req, ::grpcio::CallOption::default())
     }
 
-    pub fn say_hello_async_opt(&self, req: &super::aaa::HelloRequest, opt: ::grpcio::CallOption) -> ::grpcio::Result<::grpcio::ClientUnaryReceiver<super::aaa::HelloReply>> {
+    pub fn say_hello_async_opt(&self, req: &super::greeter::HelloRequest, opt: ::grpcio::CallOption) -> ::grpcio::Result<::grpcio::ClientUnaryReceiver<super::greeter::HelloReply>> {
         self.client.unary_call_async(&METHOD_GREETER_SAY_HELLO, req, opt)
     }
 
-    pub fn say_hello_async(&self, req: &super::aaa::HelloRequest) -> ::grpcio::Result<::grpcio::ClientUnaryReceiver<super::aaa::HelloReply>> {
+    pub fn say_hello_async(&self, req: &super::greeter::HelloRequest) -> ::grpcio::Result<::grpcio::ClientUnaryReceiver<super::greeter::HelloReply>> {
         self.say_hello_async_opt(req, ::grpcio::CallOption::default())
     }
     pub fn spawn<F>(&self, f: F) where F: ::futures::Future<Item = (), Error = ()> + Send + 'static {
@@ -58,7 +58,7 @@ impl GreeterClient {
 }
 
 pub trait Greeter {
-    fn say_hello(&mut self, ctx: ::grpcio::RpcContext, req: super::aaa::HelloRequest, sink: ::grpcio::UnarySink<super::aaa::HelloReply>);
+    fn say_hello(&mut self, ctx: ::grpcio::RpcContext, req: super::greeter::HelloRequest, sink: ::grpcio::UnarySink<super::greeter::HelloReply>);
 }
 
 pub fn create_greeter<S: Greeter + Send + Clone + 'static>(s: S) -> ::grpcio::Service {

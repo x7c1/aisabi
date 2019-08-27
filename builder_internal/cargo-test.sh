@@ -13,6 +13,9 @@ set -x
 
 cd /mnt
 
+# build single crate: grpc-rs-gen
+# cargo build --target-dir sources/grpc-rs/grpc-rs-gen
+
 RUSTFLAGS="-C opt-level=$(get_opt_level $@)" \
 cargo build \
   $(get_build_mode $@)

@@ -6,7 +6,7 @@ fn main() {
     println!("cargo:rerun-if-changed={}", proto_root);
 
     protoc_grpcio::compile_grpc_protos(
-        &["/mnt/sources/proto/aaa.proto"],
+        &["/mnt/sources/proto/aaa.proto", "/mnt/sources/proto/greeter.proto"],
         &[proto_root, "/usr/local/include"],
         &(gen_dir.to_owned() + "/src"),
         None,
