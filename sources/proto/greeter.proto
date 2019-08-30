@@ -8,6 +8,15 @@ service Greeter {
 
 message HelloRequest {
     string name = 1;
+
+    oneof optional_nickname {
+        string nickname = 2;
+//        bool no_nickname = 3;
+    }
+    oneof optional_address {
+        string address = 4;
+//        bool no_address = 5;
+    }
 }
 
 message HelloReply {

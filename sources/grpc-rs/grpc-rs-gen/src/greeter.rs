@@ -30,6 +30,9 @@ const _PROTOBUF_VERSION_CHECK: () = ::protobuf::VERSION_2_8_0;
 pub struct HelloRequest {
     // message fields
     pub name: ::std::string::String,
+    // message oneof groups
+    pub optional_nickname: ::std::option::Option<HelloRequest_oneof_optional_nickname>,
+    pub optional_address: ::std::option::Option<HelloRequest_oneof_optional_address>,
     // special fields
     pub unknown_fields: ::protobuf::UnknownFields,
     pub cached_size: ::protobuf::CachedSize,
@@ -39,6 +42,16 @@ impl<'a> ::std::default::Default for &'a HelloRequest {
     fn default() -> &'a HelloRequest {
         <HelloRequest as ::protobuf::Message>::default_instance()
     }
+}
+
+#[derive(Clone,PartialEq,Debug)]
+pub enum HelloRequest_oneof_optional_nickname {
+    nickname(::std::string::String),
+}
+
+#[derive(Clone,PartialEq,Debug)]
+pub enum HelloRequest_oneof_optional_address {
+    address(::std::string::String),
 }
 
 impl HelloRequest {
@@ -71,6 +84,104 @@ impl HelloRequest {
     pub fn take_name(&mut self) -> ::std::string::String {
         ::std::mem::replace(&mut self.name, ::std::string::String::new())
     }
+
+    // string nickname = 2;
+
+
+    pub fn get_nickname(&self) -> &str {
+        match self.optional_nickname {
+            ::std::option::Option::Some(HelloRequest_oneof_optional_nickname::nickname(ref v)) => v,
+            _ => "",
+        }
+    }
+    pub fn clear_nickname(&mut self) {
+        self.optional_nickname = ::std::option::Option::None;
+    }
+
+    pub fn has_nickname(&self) -> bool {
+        match self.optional_nickname {
+            ::std::option::Option::Some(HelloRequest_oneof_optional_nickname::nickname(..)) => true,
+            _ => false,
+        }
+    }
+
+    // Param is passed by value, moved
+    pub fn set_nickname(&mut self, v: ::std::string::String) {
+        self.optional_nickname = ::std::option::Option::Some(HelloRequest_oneof_optional_nickname::nickname(v))
+    }
+
+    // Mutable pointer to the field.
+    pub fn mut_nickname(&mut self) -> &mut ::std::string::String {
+        if let ::std::option::Option::Some(HelloRequest_oneof_optional_nickname::nickname(_)) = self.optional_nickname {
+        } else {
+            self.optional_nickname = ::std::option::Option::Some(HelloRequest_oneof_optional_nickname::nickname(::std::string::String::new()));
+        }
+        match self.optional_nickname {
+            ::std::option::Option::Some(HelloRequest_oneof_optional_nickname::nickname(ref mut v)) => v,
+            _ => panic!(),
+        }
+    }
+
+    // Take field
+    pub fn take_nickname(&mut self) -> ::std::string::String {
+        if self.has_nickname() {
+            match self.optional_nickname.take() {
+                ::std::option::Option::Some(HelloRequest_oneof_optional_nickname::nickname(v)) => v,
+                _ => panic!(),
+            }
+        } else {
+            ::std::string::String::new()
+        }
+    }
+
+    // string address = 4;
+
+
+    pub fn get_address(&self) -> &str {
+        match self.optional_address {
+            ::std::option::Option::Some(HelloRequest_oneof_optional_address::address(ref v)) => v,
+            _ => "",
+        }
+    }
+    pub fn clear_address(&mut self) {
+        self.optional_address = ::std::option::Option::None;
+    }
+
+    pub fn has_address(&self) -> bool {
+        match self.optional_address {
+            ::std::option::Option::Some(HelloRequest_oneof_optional_address::address(..)) => true,
+            _ => false,
+        }
+    }
+
+    // Param is passed by value, moved
+    pub fn set_address(&mut self, v: ::std::string::String) {
+        self.optional_address = ::std::option::Option::Some(HelloRequest_oneof_optional_address::address(v))
+    }
+
+    // Mutable pointer to the field.
+    pub fn mut_address(&mut self) -> &mut ::std::string::String {
+        if let ::std::option::Option::Some(HelloRequest_oneof_optional_address::address(_)) = self.optional_address {
+        } else {
+            self.optional_address = ::std::option::Option::Some(HelloRequest_oneof_optional_address::address(::std::string::String::new()));
+        }
+        match self.optional_address {
+            ::std::option::Option::Some(HelloRequest_oneof_optional_address::address(ref mut v)) => v,
+            _ => panic!(),
+        }
+    }
+
+    // Take field
+    pub fn take_address(&mut self) -> ::std::string::String {
+        if self.has_address() {
+            match self.optional_address.take() {
+                ::std::option::Option::Some(HelloRequest_oneof_optional_address::address(v)) => v,
+                _ => panic!(),
+            }
+        } else {
+            ::std::string::String::new()
+        }
+    }
 }
 
 impl ::protobuf::Message for HelloRequest {
@@ -84,6 +195,18 @@ impl ::protobuf::Message for HelloRequest {
             match field_number {
                 1 => {
                     ::protobuf::rt::read_singular_proto3_string_into(wire_type, is, &mut self.name)?;
+                },
+                2 => {
+                    if wire_type != ::protobuf::wire_format::WireTypeLengthDelimited {
+                        return ::std::result::Result::Err(::protobuf::rt::unexpected_wire_type(wire_type));
+                    }
+                    self.optional_nickname = ::std::option::Option::Some(HelloRequest_oneof_optional_nickname::nickname(is.read_string()?));
+                },
+                4 => {
+                    if wire_type != ::protobuf::wire_format::WireTypeLengthDelimited {
+                        return ::std::result::Result::Err(::protobuf::rt::unexpected_wire_type(wire_type));
+                    }
+                    self.optional_address = ::std::option::Option::Some(HelloRequest_oneof_optional_address::address(is.read_string()?));
                 },
                 _ => {
                     ::protobuf::rt::read_unknown_or_skip_group(field_number, wire_type, is, self.mut_unknown_fields())?;
@@ -100,6 +223,20 @@ impl ::protobuf::Message for HelloRequest {
         if !self.name.is_empty() {
             my_size += ::protobuf::rt::string_size(1, &self.name);
         }
+        if let ::std::option::Option::Some(ref v) = self.optional_nickname {
+            match v {
+                &HelloRequest_oneof_optional_nickname::nickname(ref v) => {
+                    my_size += ::protobuf::rt::string_size(2, &v);
+                },
+            };
+        }
+        if let ::std::option::Option::Some(ref v) = self.optional_address {
+            match v {
+                &HelloRequest_oneof_optional_address::address(ref v) => {
+                    my_size += ::protobuf::rt::string_size(4, &v);
+                },
+            };
+        }
         my_size += ::protobuf::rt::unknown_fields_size(self.get_unknown_fields());
         self.cached_size.set(my_size);
         my_size
@@ -108,6 +245,20 @@ impl ::protobuf::Message for HelloRequest {
     fn write_to_with_cached_sizes(&self, os: &mut ::protobuf::CodedOutputStream) -> ::protobuf::ProtobufResult<()> {
         if !self.name.is_empty() {
             os.write_string(1, &self.name)?;
+        }
+        if let ::std::option::Option::Some(ref v) = self.optional_nickname {
+            match v {
+                &HelloRequest_oneof_optional_nickname::nickname(ref v) => {
+                    os.write_string(2, v)?;
+                },
+            };
+        }
+        if let ::std::option::Option::Some(ref v) = self.optional_address {
+            match v {
+                &HelloRequest_oneof_optional_address::address(ref v) => {
+                    os.write_string(4, v)?;
+                },
+            };
         }
         os.write_unknown_fields(self.get_unknown_fields())?;
         ::std::result::Result::Ok(())
@@ -156,6 +307,16 @@ impl ::protobuf::Message for HelloRequest {
                     |m: &HelloRequest| { &m.name },
                     |m: &mut HelloRequest| { &mut m.name },
                 ));
+                fields.push(::protobuf::reflect::accessor::make_singular_string_accessor::<_>(
+                    "nickname",
+                    HelloRequest::has_nickname,
+                    HelloRequest::get_nickname,
+                ));
+                fields.push(::protobuf::reflect::accessor::make_singular_string_accessor::<_>(
+                    "address",
+                    HelloRequest::has_address,
+                    HelloRequest::get_address,
+                ));
                 ::protobuf::reflect::MessageDescriptor::new::<HelloRequest>(
                     "HelloRequest",
                     fields,
@@ -179,6 +340,8 @@ impl ::protobuf::Message for HelloRequest {
 impl ::protobuf::Clear for HelloRequest {
     fn clear(&mut self) {
         self.name.clear();
+        self.optional_nickname = ::std::option::Option::None;
+        self.optional_address = ::std::option::Option::None;
         self.unknown_fields.clear();
     }
 }
@@ -365,11 +528,13 @@ impl ::protobuf::reflect::ProtobufValue for HelloReply {
 }
 
 static file_descriptor_proto_data: &'static [u8] = b"\
-    \n\rgreeter.proto\x12\x0cgrpc.testing\"\"\n\x0cHelloRequest\x12\x12\n\
-    \x04name\x18\x01\x20\x01(\tR\x04name\"&\n\nHelloReply\x12\x18\n\x07messa\
-    ge\x18\x01\x20\x01(\tR\x07message2M\n\x07Greeter\x12B\n\x08SayHello\x12\
-    \x1a.grpc.testing.HelloRequest\x1a\x18.grpc.testing.HelloReply\"\0b\x06p\
-    roto3\
+    \n\rgreeter.proto\x12\x0cgrpc.testing\"\x85\x01\n\x0cHelloRequest\x12\
+    \x12\n\x04name\x18\x01\x20\x01(\tR\x04name\x12\x1c\n\x08nickname\x18\x02\
+    \x20\x01(\tH\0R\x08nickname\x12\x1a\n\x07address\x18\x04\x20\x01(\tH\x01\
+    R\x07addressB\x13\n\x11optional_nicknameB\x12\n\x10optional_address\"&\n\
+    \nHelloReply\x12\x18\n\x07message\x18\x01\x20\x01(\tR\x07message2M\n\x07\
+    Greeter\x12B\n\x08SayHello\x12\x1a.grpc.testing.HelloRequest\x1a\x18.grp\
+    c.testing.HelloReply\"\0b\x06proto3\
 ";
 
 static mut file_descriptor_proto_lazy: ::protobuf::lazy::Lazy<::protobuf::descriptor::FileDescriptorProto> = ::protobuf::lazy::Lazy {
