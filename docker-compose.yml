@@ -1,0 +1,36 @@
+version: '3.2'
+services:
+  grpc_rs_server:
+    build:
+      ./builder_docker
+    command:
+      /mnt/target/debug/grpc-rs-server
+    volumes:
+      - .:/mnt
+    working_dir:
+      /mnt
+    tty:
+      true
+    logging:
+      options:
+        max-size: "50m"
+        max-file: "2"
+  grpc_rs_client:
+    build:
+      ./builder_docker
+    environment:
+      RUST_BACKTRACE: 1
+    command:
+      /mnt/target/debug/grpc-rs-client
+    volumes:
+      - .:/mnt
+    working_dir:
+      /mnt
+    tty:
+      true
+    depends_on:
+      - grpc_rs_server
+    logging:
+      options:
+        max-size: "50m"
+        max-file: "2"

@@ -12,4 +12,16 @@ RUN set -x && \
   mv protoc3/include/* /usr/local/include/
 
 RUN set -x &&\
-  chmod ugo+x /usr/local/bin/protoc
+  chmod ugo+x /usr/local/bin/protoc && \
+  chmod ugo+r /usr/local/include/google && \
+  chmod ugo+r /usr/local/include/google/**/*
+
+RUN set -x && \
+  apt-get update && \
+  apt-get install -y \
+    cmake \
+    lsof \
+    golang-go
+
+RUN set -x && \
+  rustup component add rustfmt --toolchain 1.37.0-x86_64-unknown-linux-gnu
