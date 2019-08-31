@@ -1,13 +1,13 @@
-use log::error;
-use tower_grpc_gen::aisabi::greeter::server::{Greeter, GreeterServer};
-use tower_grpc_gen::aisabi::greeter::{HelloRequest, HelloReply};
-use tower_grpc::{Request, Response};
 use futures::future::FutureResult;
 use futures::{future, Future, Stream};
-use tower_hyper::Server;
-use tower_hyper::server::Http;
+use log::error;
 use std::net::SocketAddr;
 use tokio::net::TcpListener;
+use tower_grpc::{Request, Response};
+use tower_grpc_gen::aisabi::greeter::server::{Greeter, GreeterServer};
+use tower_grpc_gen::aisabi::greeter::{HelloReply, HelloRequest};
+use tower_hyper::server::Http;
+use tower_hyper::Server;
 
 #[derive(Clone)]
 struct GreeterImpl;
@@ -31,7 +31,8 @@ pub fn main() {
     let mut server = Server::new(new_service);
     let http = Http::new().http2_only(true).clone();
 
-//    let addr: SocketAddr = "[::1]:50052".parse().unwrap();
+    //should use [::1] ?
+    //let addr: SocketAddr = "[::1]:50052".parse().unwrap();
     let addr: SocketAddr = "0.0.0.0:50052".parse().unwrap();
     let bind: TcpListener = TcpListener::bind(&addr).expect("bind");
 
