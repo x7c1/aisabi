@@ -7,3 +7,4 @@ edition = "2018"
 
 [dependencies]
 protobuf = "2.8.*"
+grpc = "0.6"
