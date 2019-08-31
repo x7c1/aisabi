@@ -528,13 +528,13 @@ impl ::protobuf::reflect::ProtobufValue for HelloReply {
 }
 
 static file_descriptor_proto_data: &'static [u8] = b"\
-    \n\rgreeter.proto\x12\x0cgrpc.testing\"\x85\x01\n\x0cHelloRequest\x12\
+    \n\rgreeter.proto\x12\x0eaisabi.samples\"\x85\x01\n\x0cHelloRequest\x12\
     \x12\n\x04name\x18\x01\x20\x01(\tR\x04name\x12\x1c\n\x08nickname\x18\x02\
     \x20\x01(\tH\0R\x08nickname\x12\x1a\n\x07address\x18\x04\x20\x01(\tH\x01\
     R\x07addressB\x13\n\x11optional_nicknameB\x12\n\x10optional_address\"&\n\
-    \nHelloReply\x12\x18\n\x07message\x18\x01\x20\x01(\tR\x07message2M\n\x07\
-    Greeter\x12B\n\x08SayHello\x12\x1a.grpc.testing.HelloRequest\x1a\x18.grp\
-    c.testing.HelloReply\"\0b\x06proto3\
+    \nHelloReply\x12\x18\n\x07message\x18\x01\x20\x01(\tR\x07message2Q\n\x07\
+    Greeter\x12F\n\x08SayHello\x12\x1c.aisabi.samples.HelloRequest\x1a\x1a.a\
+    isabi.samples.HelloReply\"\0b\x06proto3\
 ";
 
 static mut file_descriptor_proto_lazy: ::protobuf::lazy::Lazy<::protobuf::descriptor::FileDescriptorProto> = ::protobuf::lazy::Lazy {

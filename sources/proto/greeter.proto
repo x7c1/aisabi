@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package grpc.testing;
+package aisabi.samples;
 
 service Greeter {
     rpc SayHello (HelloRequest) returns (HelloReply) {}
@@ -11,11 +11,9 @@ message HelloRequest {
 
     oneof optional_nickname {
         string nickname = 2;
-//        bool no_nickname = 3;
     }
     oneof optional_address {
         string address = 4;
-//        bool no_address = 5;
     }
 }
 

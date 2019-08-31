@@ -20,7 +20,7 @@
 
 const METHOD_GREETER_SAY_HELLO: ::grpcio::Method<super::greeter::HelloRequest, super::greeter::HelloReply> = ::grpcio::Method {
     ty: ::grpcio::MethodType::Unary,
-    name: "/grpc.testing.Greeter/SayHello",
+    name: "/aisabi.samples.Greeter/SayHello",
     req_mar: ::grpcio::Marshaller { ser: ::grpcio::pb_ser, de: ::grpcio::pb_de },
     resp_mar: ::grpcio::Marshaller { ser: ::grpcio::pb_ser, de: ::grpcio::pb_de },
 };
