@@ -7,6 +7,3 @@ edition = "2018"
 
 [dependencies]
 grpc-rust-gen = { path = "../grpc-rust-gen" }
-
-[build-dependencies]
-protoc-rust-grpc = "0.6.*"
