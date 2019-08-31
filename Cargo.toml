@@ -3,4 +3,5 @@ members = [
     "sources/grpc-rust/grpc-rust-server",
     "sources/grpc-rs/grpc-rs-server",
     "sources/grpc-rs/grpc-rs-client",
+    "sources/tower-grpc/tower-grpc-server",
 ]
