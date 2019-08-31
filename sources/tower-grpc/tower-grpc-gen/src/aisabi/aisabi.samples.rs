@@ -1,32 +1,32 @@
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct HelloRequest {
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub name: std::string::String,
-    #[prost(oneof="hello_request::OptionalNickname", tags="2")]
+    #[prost(oneof = "hello_request::OptionalNickname", tags = "2")]
     pub optional_nickname: ::std::option::Option<hello_request::OptionalNickname>,
-    #[prost(oneof="hello_request::OptionalAddress", tags="4")]
+    #[prost(oneof = "hello_request::OptionalAddress", tags = "4")]
     pub optional_address: ::std::option::Option<hello_request::OptionalAddress>,
 }
 pub mod hello_request {
     #[derive(Clone, PartialEq, ::prost::Oneof)]
     pub enum OptionalNickname {
-        #[prost(string, tag="2")]
+        #[prost(string, tag = "2")]
         Nickname(std::string::String),
     }
     #[derive(Clone, PartialEq, ::prost::Oneof)]
     pub enum OptionalAddress {
-        #[prost(string, tag="4")]
+        #[prost(string, tag = "4")]
         Address(std::string::String),
     }
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct HelloReply {
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub message: std::string::String,
 }
 pub mod client {
+    use super::{HelloReply, HelloRequest};
     use ::tower_grpc::codegen::client::*;
-    use super::{HelloRequest, HelloReply};
 
     #[derive(Debug, Clone)]
     pub struct Greeter<T> {
@@ -41,21 +41,27 @@ pub mod client {
 
         /// Poll whether this client is ready to send another request.
         pub fn poll_ready<R>(&mut self) -> futures::Poll<(), grpc::Status>
-        where T: grpc::GrpcService<R>,
+        where
+            T: grpc::GrpcService<R>,
         {
             self.inner.poll_ready()
         }
 
         /// Get a `Future` of when this client is ready to send another request.
         pub fn ready<R>(self) -> impl futures::Future<Item = Self, Error = grpc::Status>
-        where T: grpc::GrpcService<R>,
+        where
+            T: grpc::GrpcService<R>,
         {
             futures::Future::map(self.inner.ready(), |inner| Self { inner })
         }
 
-        pub fn say_hello<R>(&mut self, request: grpc::Request<HelloRequest>) -> grpc::unary::ResponseFuture<HelloReply, T::Future, T::ResponseBody>
-        where T: grpc::GrpcService<R>,
-              grpc::unary::Once<HelloRequest>: grpc::Encodable<R>,
+        pub fn say_hello<R>(
+            &mut self,
+            request: grpc::Request<HelloRequest>,
+        ) -> grpc::unary::ResponseFuture<HelloReply, T::Future, T::ResponseBody>
+        where
+            T: grpc::GrpcService<R>,
+            grpc::unary::Once<HelloRequest>: grpc::Encodable<R>,
         {
             let path = http::PathAndQuery::from_static("/aisabi.samples.Greeter/SayHello");
             self.inner.unary(request, path)
@@ -64,21 +70,26 @@ pub mod client {
 }
 
 pub mod server {
+    use super::{HelloReply, HelloRequest};
     use ::tower_grpc::codegen::server::*;
-    use super::{HelloRequest, HelloReply};
 
     // Redefine the try_ready macro so that it doesn't need to be explicitly
     // imported by the user of this generated code.
     macro_rules! try_ready {
-        ($e:expr) => (match $e {
-            Ok(futures::Async::Ready(t)) => t,
-            Ok(futures::Async::NotReady) => return Ok(futures::Async::NotReady),
-            Err(e) => return Err(From::from(e)),
-        })
+        ($e:expr) => {
+            match $e {
+                Ok(futures::Async::Ready(t)) => t,
+                Ok(futures::Async::NotReady) => return Ok(futures::Async::NotReady),
+                Err(e) => return Err(From::from(e)),
+            }
+        };
     }
 
     pub trait Greeter: Clone {
-        type SayHelloFuture: futures::Future<Item = grpc::Response<HelloReply>, Error = grpc::Status>;
+        type SayHelloFuture: futures::Future<
+            Item = grpc::Response<HelloReply>,
+            Error = grpc::Status,
+        >;
 
         fn say_hello(&mut self, request: grpc::Request<HelloRequest>) -> Self::SayHelloFuture;
     }
@@ -89,7 +100,8 @@ pub mod server {
     }
 
     impl<T> GreeterServer<T>
-    where T: Greeter,
+    where
+        T: Greeter,
     {
         pub fn new(greeter: T) -> Self {
             Self { greeter }
@@ -97,7 +109,8 @@ pub mod server {
     }
 
     impl<T> tower::Service<http::Request<grpc::BoxBody>> for GreeterServer<T>
-    where T: Greeter,
+    where
+        T: Greeter,
     {
         type Response = http::Response<greeter::ResponseBody<T>>;
         type Error = grpc::Never;
@@ -114,17 +127,23 @@ pub mod server {
                 "/aisabi.samples.Greeter/SayHello" => {
                     let service = greeter::methods::SayHello(self.greeter.clone());
                     let response = grpc::unary(service, request);
-                    greeter::ResponseFuture { kind: SayHello(response) }
+                    greeter::ResponseFuture {
+                        kind: SayHello(response),
+                    }
                 }
-                _ => {
-                    greeter::ResponseFuture { kind: __Generated__Unimplemented(grpc::unimplemented(format!("unknown service: {:?}", request.uri().path()))) }
-                }
+                _ => greeter::ResponseFuture {
+                    kind: __Generated__Unimplemented(grpc::unimplemented(format!(
+                        "unknown service: {:?}",
+                        request.uri().path()
+                    ))),
+                },
             }
         }
     }
 
     impl<T> tower::Service<()> for GreeterServer<T>
-    where T: Greeter,
+    where
+        T: Greeter,
     {
         type Response = Self;
         type Error = grpc::Never;
@@ -140,12 +159,13 @@ pub mod server {
     }
 
     pub mod greeter {
-        use ::tower_grpc::codegen::server::*;
-        use super::Greeter;
         use super::super::HelloRequest;
+        use super::Greeter;
+        use ::tower_grpc::codegen::server::*;
 
         pub struct ResponseFuture<T>
-        where T: Greeter,
+        where
+            T: Greeter,
         {
             pub(super) kind: Kind<
                 // SayHello
@@ -156,7 +176,8 @@ pub mod server {
         }
 
         impl<T> futures::Future for ResponseFuture<T>
-        where T: Greeter,
+        where
+            T: Greeter,
         {
             type Item = http::Response<ResponseBody<T>>;
             type Error = grpc::Never;
@@ -167,15 +188,15 @@ pub mod server {
                 match self.kind {
                     SayHello(ref mut fut) => {
                         let response = try_ready!(fut.poll());
-                        let response = response.map(|body| {
-                            ResponseBody { kind: SayHello(body) }
+                        let response = response.map(|body| ResponseBody {
+                            kind: SayHello(body),
                         });
                         Ok(response.into())
                     }
                     __Generated__Unimplemented(ref mut fut) => {
                         let response = try_ready!(fut.poll());
-                        let response = response.map(|body| {
-                            ResponseBody { kind: __Generated__Unimplemented(body) }
+                        let response = response.map(|body| ResponseBody {
+                            kind: __Generated__Unimplemented(body),
                         });
                         Ok(response.into())
                     }
@@ -184,18 +205,24 @@ pub mod server {
         }
 
         pub struct ResponseBody<T>
-        where T: Greeter,
+        where
+            T: Greeter,
         {
             pub(super) kind: Kind<
                 // SayHello
-                grpc::Encode<grpc::unary::Once<<methods::SayHello<T> as grpc::UnaryService<HelloRequest>>::Response>>,
+                grpc::Encode<
+                    grpc::unary::Once<
+                        <methods::SayHello<T> as grpc::UnaryService<HelloRequest>>::Response,
+                    >,
+                >,
                 // A generated catch-all for unimplemented service calls
                 (),
             >,
         }
 
         impl<T> tower::HttpBody for ResponseBody<T>
-        where T: Greeter,
+        where
+            T: Greeter,
         {
             type Data = <grpc::BoxBody as grpc::Body>::Data;
             type Error = grpc::Status;
@@ -236,13 +263,14 @@ pub mod server {
         }
 
         pub mod methods {
+            use super::super::{Greeter, HelloReply, HelloRequest};
             use ::tower_grpc::codegen::server::*;
-            use super::super::{Greeter, HelloRequest, HelloReply};
 
             pub struct SayHello<T>(pub T);
 
             impl<T> tower::Service<grpc::Request<HelloRequest>> for SayHello<T>
-            where T: Greeter,
+            where
+                T: Greeter,
             {
                 type Response = grpc::Response<HelloReply>;
                 type Error = grpc::Status;
