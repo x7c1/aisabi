@@ -15,6 +15,12 @@ do
           emit-files)
             cargo fmt --verbose -- --emit files
             ;;
+          help)
+            cargo fmt --help
+            rustfmt --help
+            rustfmt --help=config
+            rustfmt --help=file-lines
+            ;;
         esac
         ;;
   esac
