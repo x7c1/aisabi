@@ -17,4 +17,5 @@ fn main() {
         .unwrap_or_else(|e| panic!("protobuf compilation failed: {}", e));
 
     println!("cargo:rerun-if-changed=../../proto/greeter.proto");
+    println!("cargo:rerun-if-changed=../../proto/health_check.proto");
 }

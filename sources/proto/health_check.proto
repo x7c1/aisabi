@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+package aisabi.health_check;
+
+service HealthCheck {
+    rpc Echo (EchoRequest) returns (HelloReply) {}
+    rpc EchoDatabase (HelloRequest) returns (HelloReply) {}
+}
+
+message EchoRequest {};
+
+message HelloRequest {
+    string name = 1;
+
+    oneof optional_nickname {
+        string nickname = 2;
+    }
+    oneof optional_address {
+        string address = 4;
+    }
+}
+
+message HelloReply {
+    string message = 1;
+}

@@ -1,6 +1,9 @@
 pub mod aisabi {
     #[path = "aisabi.samples.rs"]
     pub mod samples;
+
+    #[path = "aisabi.health_check.rs"]
+    pub mod health_check;
 }
 
 #[cfg(test)]

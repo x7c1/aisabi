@@ -9,11 +9,8 @@ edition = "2018"
 [dependencies]
 bytes = "0.4"
 prost = "0.5"
-#tokio = "0.1"
 tower-grpc = { version = "0.1",  features = ["tower-hyper"] }
-#tower-service = "0.2"
-#tower-util = "0.1"
 
 [build-dependencies]
 prost-build = "0.5"
-tower-grpc-build = "0.1"
+tower-grpc-build = { version = "0.1",  features = ["tower-hyper"] }
