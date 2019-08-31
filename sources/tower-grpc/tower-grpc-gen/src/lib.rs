@@ -1,5 +1,5 @@
 pub mod aisabi {
-    #[path = "aisabi.samples.rs"]
+    #[path = "aisabi.greeter.rs"]
     pub mod samples;
 
     #[path = "aisabi.health_check.rs"]

@@ -37,7 +37,7 @@ impl ::grpc::ClientStub for GreeterClient {
         GreeterClient {
             grpc_client: grpc_client,
             method_SayHello: ::std::sync::Arc::new(::grpc::rt::MethodDescriptor {
-                name: "/aisabi.samples.Greeter/SayHello".to_string(),
+                name: "/aisabi.greeter.Greeter/SayHello".to_string(),
                 streaming: ::grpc::rt::GrpcStreaming::Unary,
                 req_marshaller: Box::new(::grpc::protobuf::MarshallerProtobuf),
                 resp_marshaller: Box::new(::grpc::protobuf::MarshallerProtobuf),
@@ -60,11 +60,11 @@ pub struct GreeterServer;
 impl GreeterServer {
     pub fn new_service_def<H : Greeter + 'static + Sync + Send + 'static>(handler: H) -> ::grpc::rt::ServerServiceDefinition {
         let handler_arc = ::std::sync::Arc::new(handler);
-        ::grpc::rt::ServerServiceDefinition::new("/aisabi.samples.Greeter",
+        ::grpc::rt::ServerServiceDefinition::new("/aisabi.greeter.Greeter",
             vec![
                 ::grpc::rt::ServerMethod::new(
                     ::std::sync::Arc::new(::grpc::rt::MethodDescriptor {
-                        name: "/aisabi.samples.Greeter/SayHello".to_string(),
+                        name: "/aisabi.greeter.Greeter/SayHello".to_string(),
                         streaming: ::grpc::rt::GrpcStreaming::Unary,
                         req_marshaller: Box::new(::grpc::protobuf::MarshallerProtobuf),
                         resp_marshaller: Box::new(::grpc::protobuf::MarshallerProtobuf),

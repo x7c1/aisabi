@@ -63,7 +63,7 @@ pub mod client {
             T: grpc::GrpcService<R>,
             grpc::unary::Once<HelloRequest>: grpc::Encodable<R>,
         {
-            let path = http::PathAndQuery::from_static("/aisabi.samples.Greeter/SayHello");
+            let path = http::PathAndQuery::from_static("/aisabi.greeter.Greeter/SayHello");
             self.inner.unary(request, path)
         }
     }
@@ -124,7 +124,7 @@ pub mod server {
             use self::greeter::Kind::*;
 
             match request.uri().path() {
-                "/aisabi.samples.Greeter/SayHello" => {
+                "/aisabi.greeter.Greeter/SayHello" => {
                     let service = greeter::methods::SayHello(self.greeter.clone());
                     let response = grpc::unary(service, request);
                     greeter::ResponseFuture {
