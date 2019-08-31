@@ -86,18 +86,21 @@ fn test_greeter_service() {
     let channel = ChannelBuilder::new(env).connect(&format!("0.0.0.0:{}", port));
     let client = GreeterClient::new(channel);
 
-    let mut request = HelloRequest {
+    /*
+    use grpc_rs_gen::greeter::HelloRequest_oneof_optional_address::address;
+    let request = HelloRequest {
         name: "world".to_string(),
         optional_address: Some(address("hoge addr".to_string())),
         ..Default::default()
     };
+    (both of them are clunky.)
+    */
     let request = {
         let mut x = HelloRequest::new();
         x.set_name("world".to_string());
         x.set_address("sample address".to_string());
         x
     };
-    println!("---host, {} {:?}", host, request);
     let reply = client.say_hello(&request).unwrap();
     assert_eq!(reply.message, "hello, world!")
 }
