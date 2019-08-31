@@ -7,7 +7,6 @@ fn main() {
 
     protoc_grpcio::compile_grpc_protos(
         &[
-            "/mnt/sources/proto/aaa.proto",
             "/mnt/sources/proto/greeter.proto",
         ],
         &[proto_root, "/usr/local/include"],

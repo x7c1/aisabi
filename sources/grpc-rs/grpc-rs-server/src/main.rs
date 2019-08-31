@@ -64,14 +64,6 @@ fn main() {
     let _ = server.shutdown().wait();
 }
 
-fn get_status() -> EchoStatus {
-    EchoStatus {
-        code: 200,
-        message: "hello!".to_string(),
-        ..Default::default()
-    }
-}
-
 fn setup_server() -> Server {
     let env = Arc::new(Environment::new(1));
     let service = create_greeter(GreeterService);
@@ -83,18 +75,6 @@ fn setup_server() -> Server {
 
     server.start();
     server
-}
-
-#[cfg(test)]
-mod tests {
-    use super::*;
-
-    #[test]
-    fn test_status() {
-        let status = get_status();
-        assert_eq!(status.get_code(), 200);
-        assert_eq!(status.get_message(), "hello!");
-    }
 }
 
 #[test]

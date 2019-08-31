@@ -1,14 +1,13 @@
-use grpc_rust_gen::aaa::EchoStatus;
+use grpc_rust_gen::greeter::HelloRequest;
 
 fn main() {
-    let status = get_status();
+    let status = get_request();
     println!("{:#?}", status);
 }
 
-fn get_status() -> EchoStatus {
-    EchoStatus {
-        code: 200,
-        message: "hello!".to_string(),
+fn get_request() -> HelloRequest {
+    HelloRequest {
+        name: "world".to_string(),
         ..Default::default()
     }
 }
@@ -19,8 +18,7 @@ mod tests {
 
     #[test]
     fn test_status() {
-        let status = get_status();
-        assert_eq!(status.code, 200);
-        assert_eq!(status.message, "hello!");
+        let request = get_request();
+        assert_eq!(request.name, "world");
     }
 }

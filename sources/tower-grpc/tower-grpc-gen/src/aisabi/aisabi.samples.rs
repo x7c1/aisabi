@@ -158,6 +158,24 @@ pub mod server {
         }
     }
 
+    impl<T> tower::Service<http::Request<tower_hyper::Body>> for GreeterServer<T>
+    where
+        T: Greeter,
+    {
+        type Response = <Self as tower::Service<http::Request<grpc::BoxBody>>>::Response;
+        type Error = <Self as tower::Service<http::Request<grpc::BoxBody>>>::Error;
+        type Future = <Self as tower::Service<http::Request<grpc::BoxBody>>>::Future;
+
+        fn poll_ready(&mut self) -> futures::Poll<(), Self::Error> {
+            tower::Service::<http::Request<grpc::BoxBody>>::poll_ready(self)
+        }
+
+        fn call(&mut self, request: http::Request<tower_hyper::Body>) -> Self::Future {
+            let request = request.map(|b| grpc::BoxBody::map_from(b));
+            tower::Service::<http::Request<grpc::BoxBody>>::call(self, request)
+        }
+    }
+
     pub mod greeter {
         use super::super::HelloRequest;
         use super::Greeter;
