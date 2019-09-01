@@ -1,11 +1,11 @@
 use futures::Future;
 use hyper::client::connect::{Destination, HttpConnector};
-use tower_grpc::Request;
-use tower_hyper::{client, util};
-use tower_util::MakeService;
 use tower_grpc::codegen::client::http;
+use tower_grpc::Request;
 use tower_grpc_gen::aisabi::greeter::client::Greeter;
 use tower_grpc_gen::aisabi::greeter::HelloRequest;
+use tower_hyper::{client, util};
+use tower_util::MakeService;
 
 pub fn main() {
     let _ = ::env_logger::init();
@@ -32,7 +32,7 @@ pub fn main() {
             client.say_hello(Request::new(HelloRequest {
                 name: "What is in a name?".to_string(),
                 optional_nickname: None,
-                optional_address: None
+                optional_address: None,
             }))
         })
         .and_then(|response| {
