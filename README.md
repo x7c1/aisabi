@@ -4,10 +4,11 @@ Project to compare gRPC libraries written in Rust.
 
 * [sources/tower-grpc](sources/tower-grpc)
   * using [tower-rs/tower-grpc: A gRPC client & server implementation.](https://github.com/tower-rs/tower-grpc)
-* [sources/grpc-rust](sources/grpc-rust)
-  * using [stepancheg/grpc-rust: Rust implementation of gRPC](https://github.com/stepancheg/grpc-rust)
 * [sources/grpc-rs](sources/grpc-rs)
   * using [pingcap/grpc-rs: The gRPC library for Rust built on C Core library and futures](https://github.com/pingcap/grpc-rs)
+* [sources/grpc-rust](sources/grpc-rust)
+  * using [stepancheg/grpc-rust: Rust implementation of gRPC](https://github.com/stepancheg/grpc-rust)
+  * notes: it seems not maintained. cannot create service according to examples in this repository.
 
 ## Requirements
 
