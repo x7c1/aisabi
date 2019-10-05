@@ -2,24 +2,26 @@
 
 Project to compare gRPC libraries written in Rust.
 
+* [sources/tower-grpc](sources/tower-grpc)
+  * using [tower-rs/tower-grpc: A gRPC client & server implementation.](https://github.com/tower-rs/tower-grpc)
 * [sources/grpc-rust](sources/grpc-rust)
   * using [stepancheg/grpc-rust: Rust implementation of gRPC](https://github.com/stepancheg/grpc-rust)
 * [sources/grpc-rs](sources/grpc-rs)
   * using [pingcap/grpc-rs: The gRPC library for Rust built on C Core library and futures](https://github.com/pingcap/grpc-rs)
-* [sources/tower-grpc](sources/tower-grpc)
-  * using [tower-rs/tower-grpc: A gRPC client & server implementation.](https://github.com/tower-rs/tower-grpc)
 
-## Requirement
+## Requirements
 
 Install `docker` and `docker-compose` first.
 
-## Build
+## Setup
 
 Create a container to build crates:
 
 ```
 $ ./scripts/setup-protoc-docker.sh
 ```
+
+## Build
 
 Build crates on the container:
 
