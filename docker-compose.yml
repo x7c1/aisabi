@@ -34,3 +34,39 @@ services:
       options:
         max-size: "50m"
         max-file: "2"
+  tower_grpc_server:
+    build:
+      ./builder_docker
+    environment:
+      RUST_BACKTRACE: 1
+    command:
+      /mnt/target/debug/tower-grpc-server
+    volumes:
+      - .:/mnt
+    working_dir:
+      /mnt
+    tty:
+      true
+    logging:
+      options:
+        max-size: "50m"
+        max-file: "2"
+  tower_grpc_client:
+    build:
+      ./builder_docker
+    environment:
+      RUST_BACKTRACE: 1
+    command:
+      /mnt/target/debug/tower-grpc-client
+    volumes:
+      - .:/mnt
+    working_dir:
+      /mnt
+    tty:
+      true
+    depends_on:
+      - tower_grpc_server
+    logging:
+      options:
+        max-size: "50m"
+        max-file: "2"

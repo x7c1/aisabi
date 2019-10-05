@@ -1,0 +1,15 @@
+[package]
+name = "tower-grpc-server"
+version = "0.1.0"
+edition = "2018"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+tower-grpc-gen = { path = "../tower-grpc-gen" }
+tower-grpc = "0.1"
+tower-hyper = "0.1"
+tokio = "0.1"
+futures = "0.1"
+env_logger = "0.6"
+log = "0.4"

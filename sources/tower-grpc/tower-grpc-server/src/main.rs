@@ -1,0 +1,55 @@
+use futures::future::FutureResult;
+use futures::{future, Future, Stream};
+use log::error;
+use std::net::SocketAddr;
+use tokio::net::TcpListener;
+use tower_grpc::{Request, Response};
+use tower_grpc_gen::aisabi::greeter::server::{Greeter, GreeterServer};
+use tower_grpc_gen::aisabi::greeter::{HelloReply, HelloRequest};
+use tower_hyper::server::Http;
+use tower_hyper::Server;
+
+#[derive(Clone)]
+struct GreeterImpl;
+
+impl Greeter for GreeterImpl {
+    type SayHelloFuture = FutureResult<Response<HelloReply>, tower_grpc::Status>;
+
+    fn say_hello(&mut self, request: Request<HelloRequest>) -> Self::SayHelloFuture {
+        println!("REQUEST = {:?}", request);
+
+        let response = Response::new(HelloReply {
+            message: "Zomg, it works!".to_string(),
+        });
+        future::ok(response)
+    }
+}
+
+pub fn main() {
+    let _ = env_logger::init();
+    let new_service = GreeterServer::new(GreeterImpl);
+    let mut server = Server::new(new_service);
+    let http = Http::new().http2_only(true).clone();
+
+    //should use [::1] ?
+    //let addr: SocketAddr = "[::1]:50052".parse().unwrap();
+    let addr: SocketAddr = "0.0.0.0:50052".parse().unwrap();
+    let bind: TcpListener = TcpListener::bind(&addr).expect("bind");
+
+    let serve = bind
+        .incoming()
+        .for_each(move |sock| {
+            if let Err(e) = sock.set_nodelay(true) {
+                return Err(e);
+            }
+
+            let serve = server.serve_with(sock, http.clone());
+            tokio::spawn(serve.map_err(|e| error!("hyper error: {:?}", e)));
+
+            Ok(())
+        })
+        .map_err(|e| eprintln!("accept error: {}", e));
+
+    tokio::run(serve);
+    println!("Hello, world!");
+}

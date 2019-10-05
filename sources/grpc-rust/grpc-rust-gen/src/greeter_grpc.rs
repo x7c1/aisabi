@@ -22,14 +22,14 @@
 // interface
 
 pub trait Greeter {
-    fn say_hello(&self, o: ::grpc::RequestOptions, p: super::aaa::HelloRequest) -> ::grpc::SingleResponse<super::aaa::HelloReply>;
+    fn say_hello(&self, o: ::grpc::RequestOptions, p: super::greeter::HelloRequest) -> ::grpc::SingleResponse<super::greeter::HelloReply>;
 }
 
 // client
 
 pub struct GreeterClient {
     grpc_client: ::std::sync::Arc<::grpc::Client>,
-    method_SayHello: ::std::sync::Arc<::grpc::rt::MethodDescriptor<super::aaa::HelloRequest, super::aaa::HelloReply>>,
+    method_SayHello: ::std::sync::Arc<::grpc::rt::MethodDescriptor<super::greeter::HelloRequest, super::greeter::HelloReply>>,
 }
 
 impl ::grpc::ClientStub for GreeterClient {
@@ -37,7 +37,7 @@ impl ::grpc::ClientStub for GreeterClient {
         GreeterClient {
             grpc_client: grpc_client,
             method_SayHello: ::std::sync::Arc::new(::grpc::rt::MethodDescriptor {
-                name: "/grpc.testing.Greeter/SayHello".to_string(),
+                name: "/aisabi.greeter.Greeter/SayHello".to_string(),
                 streaming: ::grpc::rt::GrpcStreaming::Unary,
                 req_marshaller: Box::new(::grpc::protobuf::MarshallerProtobuf),
                 resp_marshaller: Box::new(::grpc::protobuf::MarshallerProtobuf),
@@ -47,7 +47,7 @@ impl ::grpc::ClientStub for GreeterClient {
 }
 
 impl Greeter for GreeterClient {
-    fn say_hello(&self, o: ::grpc::RequestOptions, p: super::aaa::HelloRequest) -> ::grpc::SingleResponse<super::aaa::HelloReply> {
+    fn say_hello(&self, o: ::grpc::RequestOptions, p: super::greeter::HelloRequest) -> ::grpc::SingleResponse<super::greeter::HelloReply> {
         self.grpc_client.call_unary(o, p, self.method_SayHello.clone())
     }
 }
@@ -60,11 +60,11 @@ pub struct GreeterServer;
 impl GreeterServer {
     pub fn new_service_def<H : Greeter + 'static + Sync + Send + 'static>(handler: H) -> ::grpc::rt::ServerServiceDefinition {
         let handler_arc = ::std::sync::Arc::new(handler);
-        ::grpc::rt::ServerServiceDefinition::new("/grpc.testing.Greeter",
+        ::grpc::rt::ServerServiceDefinition::new("/aisabi.greeter.Greeter",
             vec![
                 ::grpc::rt::ServerMethod::new(
                     ::std::sync::Arc::new(::grpc::rt::MethodDescriptor {
-                        name: "/grpc.testing.Greeter/SayHello".to_string(),
+                        name: "/aisabi.greeter.Greeter/SayHello".to_string(),
                         streaming: ::grpc::rt::GrpcStreaming::Unary,
                         req_marshaller: Box::new(::grpc::protobuf::MarshallerProtobuf),
                         resp_marshaller: Box::new(::grpc::protobuf::MarshallerProtobuf),

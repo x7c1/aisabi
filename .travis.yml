@@ -10,7 +10,10 @@ services:
 before_install:
   - ./scripts/setup-protoc-docker.sh
 
-script:
+before_script:
   - ./scripts/run_builder_task.sh cargo-fmt --all-check
+
+script:
   - ./scripts/run_tests.sh
   - docker-compose up grpc_rs_client
+  - docker-compose up tower_grpc_client

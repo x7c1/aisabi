@@ -7,3 +7,7 @@ edition = "2018"
 
 [dependencies]
 protobuf = "2.8.*"
+grpc = "0.6"
+
+[build-dependencies]
+protoc-rust-grpc = "0.6.*"

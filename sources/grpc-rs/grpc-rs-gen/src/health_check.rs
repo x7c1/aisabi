@@ -17,7 +17,7 @@
 #![allow(unsafe_code)]
 #![allow(unused_imports)]
 #![allow(unused_results)]
-//! Generated file from `greeter.proto`
+//! Generated file from `health_check.proto`
 
 use protobuf::Message as Message_imported_for_functions;
 use protobuf::ProtobufEnum as ProtobufEnum_imported_for_functions;
@@ -25,6 +25,132 @@ use protobuf::ProtobufEnum as ProtobufEnum_imported_for_functions;
 /// Generated files are compatible only with the same version
 /// of protobuf runtime.
 const _PROTOBUF_VERSION_CHECK: () = ::protobuf::VERSION_2_8_0;
+
+#[derive(PartialEq,Clone,Default)]
+pub struct EchoRequest {
+    // special fields
+    pub unknown_fields: ::protobuf::UnknownFields,
+    pub cached_size: ::protobuf::CachedSize,
+}
+
+impl<'a> ::std::default::Default for &'a EchoRequest {
+    fn default() -> &'a EchoRequest {
+        <EchoRequest as ::protobuf::Message>::default_instance()
+    }
+}
+
+impl EchoRequest {
+    pub fn new() -> EchoRequest {
+        ::std::default::Default::default()
+    }
+}
+
+impl ::protobuf::Message for EchoRequest {
+    fn is_initialized(&self) -> bool {
+        true
+    }
+
+    fn merge_from(&mut self, is: &mut ::protobuf::CodedInputStream) -> ::protobuf::ProtobufResult<()> {
+        while !is.eof()? {
+            let (field_number, wire_type) = is.read_tag_unpack()?;
+            match field_number {
+                _ => {
+                    ::protobuf::rt::read_unknown_or_skip_group(field_number, wire_type, is, self.mut_unknown_fields())?;
+                },
+            };
+        }
+        ::std::result::Result::Ok(())
+    }
+
+    // Compute sizes of nested messages
+    #[allow(unused_variables)]
+    fn compute_size(&self) -> u32 {
+        let mut my_size = 0;
+        my_size += ::protobuf::rt::unknown_fields_size(self.get_unknown_fields());
+        self.cached_size.set(my_size);
+        my_size
+    }
+
+    fn write_to_with_cached_sizes(&self, os: &mut ::protobuf::CodedOutputStream) -> ::protobuf::ProtobufResult<()> {
+        os.write_unknown_fields(self.get_unknown_fields())?;
+        ::std::result::Result::Ok(())
+    }
+
+    fn get_cached_size(&self) -> u32 {
+        self.cached_size.get()
+    }
+
+    fn get_unknown_fields(&self) -> &::protobuf::UnknownFields {
+        &self.unknown_fields
+    }
+
+    fn mut_unknown_fields(&mut self) -> &mut ::protobuf::UnknownFields {
+        &mut self.unknown_fields
+    }
+
+    fn as_any(&self) -> &dyn (::std::any::Any) {
+        self as &dyn (::std::any::Any)
+    }
+    fn as_any_mut(&mut self) -> &mut dyn (::std::any::Any) {
+        self as &mut dyn (::std::any::Any)
+    }
+    fn into_any(self: Box<Self>) -> ::std::boxed::Box<dyn (::std::any::Any)> {
+        self
+    }
+
+    fn descriptor(&self) -> &'static ::protobuf::reflect::MessageDescriptor {
+        Self::descriptor_static()
+    }
+
+    fn new() -> EchoRequest {
+        EchoRequest::new()
+    }
+
+    fn descriptor_static() -> &'static ::protobuf::reflect::MessageDescriptor {
+        static mut descriptor: ::protobuf::lazy::Lazy<::protobuf::reflect::MessageDescriptor> = ::protobuf::lazy::Lazy {
+            lock: ::protobuf::lazy::ONCE_INIT,
+            ptr: 0 as *const ::protobuf::reflect::MessageDescriptor,
+        };
+        unsafe {
+            descriptor.get(|| {
+                let fields = ::std::vec::Vec::new();
+                ::protobuf::reflect::MessageDescriptor::new::<EchoRequest>(
+                    "EchoRequest",
+                    fields,
+                    file_descriptor_proto()
+                )
+            })
+        }
+    }
+
+    fn default_instance() -> &'static EchoRequest {
+        static mut instance: ::protobuf::lazy::Lazy<EchoRequest> = ::protobuf::lazy::Lazy {
+            lock: ::protobuf::lazy::ONCE_INIT,
+            ptr: 0 as *const EchoRequest,
+        };
+        unsafe {
+            instance.get(EchoRequest::new)
+        }
+    }
+}
+
+impl ::protobuf::Clear for EchoRequest {
+    fn clear(&mut self) {
+        self.unknown_fields.clear();
+    }
+}
+
+impl ::std::fmt::Debug for EchoRequest {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
+        ::protobuf::text_format::fmt(self, f)
+    }
+}
+
+impl ::protobuf::reflect::ProtobufValue for EchoRequest {
+    fn as_ref(&self) -> ::protobuf::reflect::ProtobufValueRef {
+        ::protobuf::reflect::ProtobufValueRef::Message(self)
+    }
+}
 
 #[derive(PartialEq,Clone,Default)]
 pub struct HelloRequest {
@@ -528,13 +654,15 @@ impl ::protobuf::reflect::ProtobufValue for HelloReply {
 }
 
 static file_descriptor_proto_data: &'static [u8] = b"\
-    \n\rgreeter.proto\x12\x0eaisabi.greeter\"\x85\x01\n\x0cHelloRequest\x12\
-    \x12\n\x04name\x18\x01\x20\x01(\tR\x04name\x12\x1c\n\x08nickname\x18\x02\
-    \x20\x01(\tH\0R\x08nickname\x12\x1a\n\x07address\x18\x04\x20\x01(\tH\x01\
-    R\x07addressB\x13\n\x11optional_nicknameB\x12\n\x10optional_address\"&\n\
-    \nHelloReply\x12\x18\n\x07message\x18\x01\x20\x01(\tR\x07message2Q\n\x07\
-    Greeter\x12F\n\x08SayHello\x12\x1c.aisabi.greeter.HelloRequest\x1a\x1a.a\
-    isabi.greeter.HelloReply\"\0b\x06proto3\
+    \n\x12health_check.proto\x12\x13aisabi.health_check\"\r\n\x0bEchoRequest\
+    \"\x85\x01\n\x0cHelloRequest\x12\x12\n\x04name\x18\x01\x20\x01(\tR\x04na\
+    me\x12\x1c\n\x08nickname\x18\x02\x20\x01(\tH\0R\x08nickname\x12\x1a\n\
+    \x07address\x18\x04\x20\x01(\tH\x01R\x07addressB\x13\n\x11optional_nickn\
+    ameB\x12\n\x10optional_address\"&\n\nHelloReply\x12\x18\n\x07message\x18\
+    \x01\x20\x01(\tR\x07message2\xb0\x01\n\x0bHealthCheck\x12K\n\x04Echo\x12\
+    \x20.aisabi.health_check.EchoRequest\x1a\x1f.aisabi.health_check.HelloRe\
+    ply\"\0\x12T\n\x0cEchoDatabase\x12!.aisabi.health_check.HelloRequest\x1a\
+    \x1f.aisabi.health_check.HelloReply\"\0b\x06proto3\
 ";
 
 static mut file_descriptor_proto_lazy: ::protobuf::lazy::Lazy<::protobuf::descriptor::FileDescriptorProto> = ::protobuf::lazy::Lazy {

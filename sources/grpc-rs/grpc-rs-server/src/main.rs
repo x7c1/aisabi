@@ -3,11 +3,9 @@ extern crate log;
 
 use futures::future::Future;
 use futures::sync::oneshot;
-use grpc_rs_gen::aaa::EchoStatus;
-use grpc_rs_gen::greeter::HelloRequest_oneof_optional_address::address;
 use grpc_rs_gen::greeter::{HelloReply, HelloRequest};
-use grpc_rs_gen::greeter_grpc::{create_greeter, Greeter, GreeterClient};
-use grpcio::{ChannelBuilder, Environment, RpcContext, Server, ServerBuilder, UnarySink};
+use grpc_rs_gen::greeter_grpc::{create_greeter, Greeter};
+use grpcio::{Environment, RpcContext, Server, ServerBuilder, UnarySink};
 use std::io::Read;
 use std::sync::Arc;
 use std::{io, thread};
@@ -64,14 +62,6 @@ fn main() {
     let _ = server.shutdown().wait();
 }
 
-fn get_status() -> EchoStatus {
-    EchoStatus {
-        code: 200,
-        message: "hello!".to_string(),
-        ..Default::default()
-    }
-}
-
 fn setup_server() -> Server {
     let env = Arc::new(Environment::new(1));
     let service = create_greeter(GreeterService);
@@ -85,39 +75,33 @@ fn setup_server() -> Server {
     server
 }
 
-#[cfg(test)]
-mod tests {
-    use super::*;
-
-    #[test]
-    fn test_status() {
-        let status = get_status();
-        assert_eq!(status.get_code(), 200);
-        assert_eq!(status.get_message(), "hello!");
-    }
-}
-
 #[test]
 fn test_greeter_service() {
+    use grpc_rs_gen::greeter_grpc::GreeterClient;
+    use grpcio::ChannelBuilder;
+
     let server = setup_server();
 
-    let (host, port) = &server.bind_addrs()[0];
+    let (_host, port) = &server.bind_addrs()[0];
     let env = Arc::new(Environment::new(1));
     let channel = ChannelBuilder::new(env).connect(&format!("0.0.0.0:{}", port));
     let client = GreeterClient::new(channel);
 
-    let mut request = HelloRequest {
+    /*
+    use grpc_rs_gen::greeter::HelloRequest_oneof_optional_address::address;
+    let request = HelloRequest {
         name: "world".to_string(),
         optional_address: Some(address("hoge addr".to_string())),
         ..Default::default()
     };
+    (both of them are clunky.)
+    */
     let request = {
         let mut x = HelloRequest::new();
         x.set_name("world".to_string());
         x.set_address("sample address".to_string());
         x
     };
-    println!("---host, {} {:?}", host, request);
     let reply = client.say_hello(&request).unwrap();
     assert_eq!(reply.message, "hello, world!")
 }
